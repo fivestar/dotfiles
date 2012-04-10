@@ -59,6 +59,8 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 set formatoptions+=rm
 set noswapfile
 
+set foldmethod=marker
+
 nnoremap j gj
 onoremap j gj
 xnoremap j gj
