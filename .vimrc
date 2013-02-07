@@ -17,13 +17,14 @@ Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-markdown'
 Bundle 'vim-scripts/php.vim--Garvin'
 Bundle 'nginx.vim'
 Bundle 'othree/html5.vim'
 
 if $SUDO_USER == ''
     Bundle 'Shougo/neocomplcache'
-    Bundle 'Shougo/neocomplcache-snippets-complete'
+    Bundle 'Shougo/neosnippet'
     Bundle 'Shougo/vimproc'
     Bundle 'Shougo/vimfiler'
     Bundle 'Shougo/unite.vim'
@@ -147,7 +148,7 @@ let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_snippets_dir = '~/.vim/snippets,~/.vim/bundle/snipmate-snippets/snippets'
+let g:neosnippet#snippets_directory = '~/.vim/snippets,~/.vim/bundle/snipmate-snippets/snippets'
 
 " zencoding
 let g:user_zen_settings = { 'indentation': '  ' }
