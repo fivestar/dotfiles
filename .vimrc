@@ -12,13 +12,12 @@ Bundle 'desert256.vim'
 Bundle 'molokai'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'ZenCoding.vim'
-"Bundle 'hallison/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
-Bundle 'vim-scripts/php.vim--Garvin'
+"Bundle 'vim-scripts/php.vim--Garvin'
 Bundle 'nginx.vim'
 Bundle 'othree/html5.vim'
 
@@ -85,7 +84,8 @@ highlight EOLSpace ctermbg=red guibg=red
 set fileformats=unix,dos,mac                     " trying EOL formats
 set termencoding=utf-8                           " Encoding used for the terminal.
 set encoding=utf-8                               " character encoding used inside Vim.
-set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp " list of character encodings considered when starting to edit an existing file.
+"set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp " list of character encodings considered when starting to edit an existing file.
+set fileencodings=utf-8
 
 set ambiwidth=double " Use twice the width of ASCII characters.
 
@@ -139,6 +139,8 @@ autocmd BufNewFile,BufRead *.twig set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.xml.twig setfiletype xml
 autocmd BufNewFile,BufRead *.html set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.rst.inc setfiletype rst
+autocmd BufNewFile,BufRead *.yml set softtabstop=2 shiftwidth=2
+autocmd BufNewFile,BufRead *.js set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.css set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.less set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.less setfiletype less
@@ -153,5 +155,42 @@ let g:neosnippet#snippets_directory = '~/.vim/snippets,~/.vim/bundle/snipmate-sn
 " zencoding
 let g:user_zen_settings = { 'indentation': '  ' }
 
-" unite
-nnoremap <C-o> :Unite outline<Return>
+if $SUDO_USER == ''
+    " バッファ一覧
+    noremap <C-P> :Unite buffer<CR>
+    " ファイル一覧
+    noremap <C-N> :Unite -buffer-name=file file<CR>
+    " 最近使ったファイルの一覧
+    noremap <C-Z> :Unite file_mru<CR>
+    "" ウィンドウを分割して開く
+    au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+    au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+    " ウィンドウを縦に分割して開く
+    au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+    au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+    " ESCキーを2回押すと終了する
+    au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+    au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+    " 初期設定関数を起動する
+    au FileType unite call s:unite_my_settings()
+    function! s:unite_my_settings()
+      " Overwrite settings.
+    endfunction
+    " 様々なショートカット
+    call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
+    call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/"', 2)
+    call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
+    call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/"')
+    call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
+    call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
+    call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
+    if has('win32') || has('win64')
+      call unite#set_substitute_pattern('file', '^;p', 'C:/Program Files/')
+      call unite#set_substitute_pattern('file', '^;v', '~/vimfiles/')
+    else
+      call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
+    endif
+
+    " unite-outline
+    nnoremap <C-o> :Unite outline<Return>
+endif
