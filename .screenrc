@@ -4,7 +4,7 @@ attrcolor b ".I"
 termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 term xterm-256color
 defbce "on"
-defscrollback 3000
+defscrollback 30000
 msgminwait 0
 hardstatus alwayslastline "[%Y-%m-%d %c] %`%-w%{=b bw}%n %t%{-}%+w $STY"
 #bind r eval 'echo "Resize window"' 'command -c resize'
