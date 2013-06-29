@@ -134,9 +134,10 @@ endif
 autocmd FileType yaml set expandtab
 autocmd BufNewFile,BufRead *.ru setfiletype ruby
 autocmd BufNewFile,BufRead *.flow setfiletype yaml
-autocmd BufNewFile,BufRead *.twig setfiletype htmldjango
 autocmd BufNewFile,BufRead *.twig set softtabstop=2 shiftwidth=2
-autocmd BufNewFile,BufRead *.xml.twig setfiletype xml
+autocmd BufNewFile,BufRead *.html.twig set syntax=htmldjango
+autocmd BufNewFile,BufRead *.xml.twig set syntax=xml
+autocmd BufNewFile,BufRead *.js.twig set syntax=javascript
 autocmd BufNewFile,BufRead *.html set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.rst.inc setfiletype rst
 autocmd BufNewFile,BufRead *.yml set softtabstop=2 shiftwidth=2
@@ -150,6 +151,7 @@ let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_auto_completion_start_length = 2
 let g:neosnippet#snippets_directory = '~/.vim/snippets,~/.vim/bundle/snipmate-snippets/snippets'
 
 " zencoding
@@ -177,18 +179,58 @@ if $SUDO_USER == ''
       " Overwrite settings.
     endfunction
     " 様々なショートカット
-    call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
-    call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/"', 2)
-    call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
-    call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/"')
-    call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
-    call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
-    call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
+    call unite#custom#profile('files', 'substitute_patterns', {
+                \ 'pattern': '\$\w\+',
+                \ 'subst': '\=eval(submatch(0))',
+                \ 'priority': 200,
+                \ })
+    call unite#custom#profile('files', 'substitute_patterns', {
+                \ 'pattern': '^@@',
+                \ 'subst': '\=fnamemodify(expand("#"), ":p:h")."/"',
+                \ 'priority': 2,
+                \ })
+    call unite#custom#profile('files', 'substitute_patterns', {
+                \ 'pattern': '^@',
+                \ 'subst': '\=getcwd()."/*"',
+                \ 'priority': 1,
+                \ })
+    call unite#custom#profile('files', 'substitute_patterns', {
+                \ 'pattern': '^;r',
+                \ 'subst': '\=$VIMRUNTIME."/"',
+                \ 'priority': 1,
+                \ })
+    "call unite#custom#profile('files', 'substitute_patterns', {
+    "            \ 'pattern': '^\~',
+    "            \ 'subst': escape($HOME, '\'),
+    "            \ 'priority': -2,
+    "            \ })
+    call unite#custom#profile('files', 'substitute_patterns', {
+                \ 'pattern': '\\\@<! ',
+                \ 'subst': '\\ ',
+                \ 'priority': -20,
+                \ })
+    call unite#custom#profile('files', 'substitute_patterns', {
+                \ 'pattern': '\\ \@!',
+                \ 'subst': '/',
+                \ 'priority': -30,
+                \ })
     if has('win32') || has('win64')
-      call unite#set_substitute_pattern('file', '^;p', 'C:/Program Files/')
-      call unite#set_substitute_pattern('file', '^;v', '~/vimfiles/')
+        call unite#custom#profile('files', 'substitute_patterns', {
+                    \ 'pattern': '^;p',
+                    \ 'subst': 'C:/Program Files/',
+                    \ 'priority': 1,
+                    \ })
+        call unite#custom#profile('files', 'substitute_patterns', {
+                    \ 'pattern': '^;v',
+                    \ 'subst': '~/vimfiles/',
+                    \ 'priority': 1,
+                    \ })
     else
-      call unite#set_substitute_pattern('file', '^;v', '~/.vim/')
+        call unite#custom#profile('files', 'substitute_patterns', {
+                    \ 'pattern': '^;v',
+                    \ 'subst': '~/.vim/',
+                    \ 'priority': 1,
+                    \ })
     endif
 
     " unite-outline
