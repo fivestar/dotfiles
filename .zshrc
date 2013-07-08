@@ -79,5 +79,6 @@ export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH:/usr/sbin
 
 [[ -s "/usr/local/opt/coreutils/libexec/gnubin" ]] && export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+[[ -s "$HOME/.rvm/bin" ]] && export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 bindkey "\e[Z" reverse-menu-complete
