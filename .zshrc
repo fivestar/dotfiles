@@ -70,7 +70,11 @@ export LANG=en_US.UTF-8
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
 
-alias ls='ls -hF --color'
+if [ `uname` = 'Linux' ] && [ `lsb_release -si` = 'Debian' ]; then
+    alias sudo='PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/sbin:$PATH sudo -E '
+    alias ls='ls -hF --color'
+fi
+
 alias ll='ls -l'
 alias grep='grep --color'
 
@@ -80,5 +84,10 @@ export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH:/usr/sbin
 
 [[ -s "/usr/local/opt/coreutils/libexec/gnubin" ]] && export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 [[ -s "$HOME/.rvm/bin" ]] && export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+if [ -s "$HOME/.phpenv/bin" ]; then
+    export PATH="/home/fivestar/.phpenv/bin:$PATH"
+    eval "$(phpenv init -)"
+fi
 
 bindkey "\e[Z" reverse-menu-complete

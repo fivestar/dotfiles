@@ -17,3 +17,4 @@
     br = branch
     up = pull --rebase
     graph = log --pretty=format:\"%C(yellow)%h%Creset %C(magenta)%ad%Creset | %s%Cred%d%Creset [%Cgreen%an%Creset]\" --graph --date=short
+    ranking = shortlog -s -n --no-merges

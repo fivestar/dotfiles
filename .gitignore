@@ -1,9 +1,11 @@
 *.swp
 *.swo
 .DS_Store
+._*
 
 .buildpath
 .project
 .settings
 
 phpunit.xml
+test_bootstrap_nondb.php
