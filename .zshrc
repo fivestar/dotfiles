@@ -84,9 +84,10 @@ export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH:/usr/sbin
 
 [[ -s "/usr/local/opt/coreutils/libexec/gnubin" ]] && export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 [[ -s "$HOME/.rvm/bin" ]] && export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s "$HOME/.nodebrew/current/bin" ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 if [ -s "$HOME/.phpenv/bin" ]; then
-    export PATH="/home/fivestar/.phpenv/bin:$PATH"
+    export PATH="$HOME/.phpenv/bin:$PATH"
     eval "$(phpenv init -)"
 fi
 
