@@ -81,10 +81,16 @@ alias grep='grep --color'
 export LESS='-R'
 export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH:/usr/sbin
+export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 
 [[ -s "/usr/local/opt/coreutils/libexec/gnubin" ]] && export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 [[ -s "$HOME/.rvm/bin" ]] && export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s "$HOME/.nodebrew/current/bin" ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+if [ -s "$HOME/.rbenv/bin" ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
 
 if [ -s "$HOME/.phpenv/bin" ]; then
     export PATH="$HOME/.phpenv/bin:$PATH"
