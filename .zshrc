@@ -98,3 +98,30 @@ if [ -s "$HOME/.phpenv/bin" ]; then
 fi
 
 bindkey "\e[Z" reverse-menu-complete
+
+function ag-vim () {
+  vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+}
+
+function find-vim () {
+  vim $(find . -type f | peco)
+}
+
+function peco-cd () {
+  local DIR=$(find . -type d | peco)
+
+  if [ -n "$DIR" ] ; then
+    DIR=${DIR%/*}
+    echo "pushd \"$DIR\""
+    pushd "$DIR"
+  fi
+}
+
+function peco-ag () {
+    ag $@ | peco --query "$LBUFFER"
+}
+
+alias av="ag-vim"
+alias fv="find-vim"
+alias pd="peco-cd"
+alias pa="peco-ag"
