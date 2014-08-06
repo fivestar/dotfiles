@@ -3,7 +3,7 @@
 git submodule init
 git submodule update
 
-for dotfile in .gitconfig .gvimrc .lv .screenrc .vimrc .zshrc
+for dotfile in .gitconfig .gvimrc .lv .peco .screenrc .vimrc .zshrc
 do
   rm -fr ~/$dotfile
   ln -vnfs $PWD/$dotfile ~/$dotfile

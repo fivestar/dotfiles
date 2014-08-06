@@ -2,29 +2,6 @@ autoload promptinit; promptinit
 
 autoload -Uz colors; colors
 
-function git_prompt_info {
-        local ref st color
-
-        ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-
-        st=`git status 2> /dev/null`
-        if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-                color=${fg[green]}
-        elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
-                color=${fg[yellow]}
-        elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
-                color=${fg_bold[red]}
-        else
-                color=${fg[red]}
-        fi
-
-        echo " on %{$color%}${ref#refs/heads/}%{$reset_color%}"
-}
-
-PROMPT='
-%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)
-%% '
-
 ## completion colors
 eval `dircolors`
 export ZLS_COLORS=$LS_COLORS
@@ -97,31 +74,80 @@ if [ -s "$HOME/.phpenv/bin" ]; then
     eval "$(phpenv init -)"
 fi
 
-bindkey "\e[Z" reverse-menu-complete
+function git_prompt_info {
+    local ref st color
+
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+
+    st=`git status 2> /dev/null`
+    if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
+        color=${fg[green]}
+    elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
+        color=${fg[yellow]}
+    elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
+        color=${fg_bold[red]}
+    else
+        color=${fg[red]}
+    fi
+
+    echo " on %{$color%}${ref#refs/heads/}%{$reset_color%}"
+}
+
+PROMPT='
+%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)
+%% '
 
 function ag-vim () {
-  vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+    vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
 }
 
 function find-vim () {
-  vim $(find . -type f | peco)
+    vim $(find . -type f | peco)
 }
 
-function peco-cd () {
-  local DIR=$(find . -type d | peco)
+function find-cd () {
+    local DIR=$(find . -type d | peco)
 
-  if [ -n "$DIR" ] ; then
-    DIR=${DIR%/*}
-    echo "pushd \"$DIR\""
-    pushd "$DIR"
-  fi
+    if [ -n "$DIR" ] ; then
+        DIR=${DIR%/*}
+        echo "pushd \"$DIR\""
+        pushd "$DIR"
+    fi
 }
 
-function peco-ag () {
+function ag-peco () {
     ag $@ | peco --query "$LBUFFER"
 }
 
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(\history -n 1 | \
+        eval $tac | \
+        peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+
+
+function peco-pkill() {
+    for pid in `ps aux | peco | awk '{ print $2 }'`
+    do
+        kill $pid
+        echo "Killed ${pid}"
+    done
+}
+alias pk="peco-pkill"
+
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+bindkey "\e[Z" reverse-menu-complete
+
 alias av="ag-vim"
 alias fv="find-vim"
-alias pd="peco-cd"
-alias pa="peco-ag"
+alias fd="find-cd"
+alias ap="ag-peco"
