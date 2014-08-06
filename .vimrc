@@ -1,36 +1,50 @@
-set nocompatible
-filetype off
+if has('vim_starting')
+  set nocompatible
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'vundle'
-
-Bundle 'Align'
-Bundle 'sudo.vim'
-Bundle 'desert256.vim'
-Bundle 'molokai'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'ZenCoding.vim'
-Bundle 'groenewege/vim-less'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-markdown'
-"Bundle 'vim-scripts/php.vim--Garvin'
-Bundle 'nginx.vim'
-Bundle 'othree/html5.vim'
-
-if $SUDO_USER == ''
-    Bundle 'Shougo/neocomplcache'
-    Bundle 'Shougo/neosnippet'
-    Bundle 'Shougo/vimproc'
-    Bundle 'Shougo/vimfiler'
-    Bundle 'Shougo/unite.vim'
-    Bundle 'h1mesuke/unite-outline'
+  " Required:
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-"filetype plugin on
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Align'
+NeoBundle 'sudo.vim'
+NeoBundle 'desert256.vim'
+NeoBundle 'molokai'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'ZenCoding.vim'
+NeoBundle 'groenewege/vim-less'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'nginx.vim'
+NeoBundle 'othree/html5.vim'
+
+if $SUDO_USER == ''
+    NeoBundle 'Shougo/neocomplcache'
+    NeoBundle 'Shougo/neosnippet'
+    NeoBundle 'Shougo/vimproc.vim', {
+          \ 'build' : {
+          \     'windows' : 'tools\\update-dll-mingw',
+          \     'cygwin' : 'make -f make_cygwin.mak',
+          \     'mac' : 'make -f make_mac.mak',
+          \     'unix' : 'make -f make_unix.mak',
+          \    },
+          \ }
+    NeoBundle 'Shougo/vimfiler'
+    NeoBundle 'Shougo/unite.vim'
+    NeoBundle 'Shougo/unite-outline'
+endif
+
+call neobundle#end()
+
+" Required:
+" filetype plugin indent on
+
 syntax on
 
 set backspace=2
@@ -178,60 +192,6 @@ if $SUDO_USER == ''
     function! s:unite_my_settings()
       " Overwrite settings.
     endfunction
-    " 様々なショートカット
-    call unite#custom#profile('files', 'substitute_patterns', {
-                \ 'pattern': '\$\w\+',
-                \ 'subst': '\=eval(submatch(0))',
-                \ 'priority': 200,
-                \ })
-    call unite#custom#profile('files', 'substitute_patterns', {
-                \ 'pattern': '^@@',
-                \ 'subst': '\=fnamemodify(expand("#"), ":p:h")."/"',
-                \ 'priority': 2,
-                \ })
-    call unite#custom#profile('files', 'substitute_patterns', {
-                \ 'pattern': '^@',
-                \ 'subst': '\=getcwd()."/*"',
-                \ 'priority': 1,
-                \ })
-    call unite#custom#profile('files', 'substitute_patterns', {
-                \ 'pattern': '^;r',
-                \ 'subst': '\=$VIMRUNTIME."/"',
-                \ 'priority': 1,
-                \ })
-    "call unite#custom#profile('files', 'substitute_patterns', {
-    "            \ 'pattern': '^\~',
-    "            \ 'subst': escape($HOME, '\'),
-    "            \ 'priority': -2,
-    "            \ })
-    call unite#custom#profile('files', 'substitute_patterns', {
-                \ 'pattern': '\\\@<! ',
-                \ 'subst': '\\ ',
-                \ 'priority': -20,
-                \ })
-    call unite#custom#profile('files', 'substitute_patterns', {
-                \ 'pattern': '\\ \@!',
-                \ 'subst': '/',
-                \ 'priority': -30,
-                \ })
-    if has('win32') || has('win64')
-        call unite#custom#profile('files', 'substitute_patterns', {
-                    \ 'pattern': '^;p',
-                    \ 'subst': 'C:/Program Files/',
-                    \ 'priority': 1,
-                    \ })
-        call unite#custom#profile('files', 'substitute_patterns', {
-                    \ 'pattern': '^;v',
-                    \ 'subst': '~/vimfiles/',
-                    \ 'priority': 1,
-                    \ })
-    else
-        call unite#custom#profile('files', 'substitute_patterns', {
-                    \ 'pattern': '^;v',
-                    \ 'subst': '~/.vim/',
-                    \ 'priority': 1,
-                    \ })
-    endif
 
     " unite-outline
     nnoremap <C-o> :Unite outline<Return>
@@ -262,3 +222,8 @@ endif
 "  autocmd!
 "  autocmd BufReadPost,BufNewFile,Syntax * call s:SpellConf()
 "augroup END
+
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
