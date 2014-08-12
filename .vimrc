@@ -15,7 +15,7 @@ NeoBundle 'sudo.vim'
 NeoBundle 'desert256.vim'
 NeoBundle 'molokai'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'ZenCoding.vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tpope/vim-surround'
@@ -168,8 +168,8 @@ let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_auto_completion_start_length = 2
 let g:neosnippet#snippets_directory = '~/.vim/snippets,~/.vim/bundle/snipmate-snippets/snippets'
 
-" zencoding
-let g:user_zen_settings = { 'indentation': '  ' }
+" emmet
+let g:user_emmet_settings = { 'indentation': '  ' }
 
 if $SUDO_USER == ''
     " バッファ一覧
