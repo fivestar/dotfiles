@@ -1,12 +1,12 @@
 [user]
-    name = Katsuhiro OGAWA
+    name = OGAWA Katsuhiro
     email = ko.fivestar@gmail.com
 [github]
     user = fivestar
 [color]
     ui = auto
 [core]
-    excludesfile = /home/fivestar/.gitignore
+    excludesfile = ~/.gitignore
     editor = /usr/bin/vim
 [alias]
     co = checkout
@@ -18,3 +18,5 @@
     up = pull --rebase
     graph = log --pretty=format:\"%C(yellow)%h%Creset %C(magenta)%ad%Creset | %s%Cred%d%Creset [%Cgreen%an%Creset]\" --graph --date=short
     ranking = shortlog -s -n --no-merges
+[include]
+    path = ~/.gitconfig.local

@@ -74,6 +74,9 @@ if [ -s "$HOME/.phpenv/bin" ]; then
     eval "$(phpenv init -)"
 fi
 
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
 function git_prompt_info {
     local ref st color
 
@@ -133,7 +136,6 @@ function peco-select-history() {
     zle clear-screen
 }
 
-
 function peco-pkill() {
     for pid in `ps aux | peco | awk '{ print $2 }'`
     do
@@ -141,13 +143,25 @@ function peco-pkill() {
         echo "Killed ${pid}"
     done
 }
-alias pk="peco-pkill"
+
+function peco-src () {
+    local selected_dir=$(ghq list --full-path | peco --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
 
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 bindkey "\e[Z" reverse-menu-complete
 
+zle -N peco-src
+bindkey '^]' peco-src
+
 alias av="ag-vim"
 alias fv="find-vim"
 alias fd="find-cd"
 alias ap="ag-peco"
+alias pk="peco-pkill"

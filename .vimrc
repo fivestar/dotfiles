@@ -23,6 +23,8 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'nginx.vim'
 NeoBundle 'othree/html5.vim'
+NeoBundle 'Blackrush/vim-gocode'
+NeoBundle 'fatih/vim-go'
 
 if $SUDO_USER == ''
     NeoBundle 'Shougo/neocomplcache'
@@ -159,6 +161,7 @@ autocmd BufNewFile,BufRead *.js set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.css set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.less set softtabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.less setfiletype less
+autocmd BufNewFile,BufRead *.go set noexpandtab
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
@@ -170,6 +173,9 @@ let g:neosnippet#snippets_directory = '~/.vim/snippets,~/.vim/bundle/snipmate-sn
 
 " emmet
 let g:user_emmet_settings = { 'indentation': '  ' }
+
+" vim-go
+let g:go_disable_autoinstall = 1
 
 if $SUDO_USER == ''
     " バッファ一覧
