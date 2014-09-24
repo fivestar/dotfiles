@@ -49,9 +49,9 @@ export LANG=en_US.UTF-8
 
 if [ `uname` = 'Linux' ] && [ `lsb_release -si` = 'Debian' ]; then
     alias sudo='PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/sbin:$PATH sudo -E '
-    alias ls='ls -hF --color'
 fi
 
+alias ls='ls -hF --color'
 alias ll='ls -l'
 alias grep='grep --color'
 
