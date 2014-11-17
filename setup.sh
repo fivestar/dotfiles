@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd $(dirname $0)
+
 git submodule init
 git submodule update
 
@@ -25,3 +27,8 @@ do
   rm -fr $mysqldir/$myfile
   ln -vnfs $PWD/.mysql/$myfile $mysqldir/$myfile
 done
+
+# composer
+if type composer >/dev/null 2>&1; then
+    composer global config bin-dir "~/bin"
+fi
