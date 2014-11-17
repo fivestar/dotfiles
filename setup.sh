@@ -30,5 +30,5 @@ done
 
 # composer
 if type composer >/dev/null 2>&1; then
-    composer global config bin-dir "~/bin"
+    composer config --global bin-dir "~/bin"
 fi
