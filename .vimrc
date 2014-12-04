@@ -1,6 +1,6 @@
-if has('vim_starting')
-  set nocompatible
+scriptencoding utf-8
 
+if has('vim_starting')
   " Required:
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -105,17 +105,6 @@ set fileencodings=utf-8
 
 set ambiwidth=double " Use twice the width of ASCII characters.
 
-"バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
-augroup BinaryXXD
-  autocmd!
-  autocmd BufReadPre  *.bin let &binary =1
-  autocmd BufReadPost * if &binary | silent %!xxd -g 1
-  autocmd BufReadPost * set ft=xxd | endif
-  autocmd BufWritePre * if &binary | %!xxd -r | endif
-  autocmd BufWritePost * if &binary | silent %!xxd -g 1
-  autocmd BufWritePost * set nomod | endif
-augroup END
-
 if &term =~ "xterm-256color"
   "colorscheme desert256
   colorscheme molokai
@@ -147,21 +136,23 @@ if has("syntax")
     augroup END
 endif
 
-autocmd FileType yaml set expandtab
-autocmd BufNewFile,BufRead *.ru setfiletype ruby
-autocmd BufNewFile,BufRead *.flow setfiletype yaml
-autocmd BufNewFile,BufRead *.twig set softtabstop=2 shiftwidth=2
-autocmd BufNewFile,BufRead *.html.twig set syntax=htmldjango
-autocmd BufNewFile,BufRead *.xml.twig set syntax=xml
-autocmd BufNewFile,BufRead *.js.twig set syntax=javascript
-autocmd BufNewFile,BufRead *.html set softtabstop=2 shiftwidth=2
-autocmd BufNewFile,BufRead *.rst.inc setfiletype rst
-autocmd BufNewFile,BufRead *.yml set softtabstop=2 shiftwidth=2
-autocmd BufNewFile,BufRead *.js set softtabstop=2 shiftwidth=2
-autocmd BufNewFile,BufRead *.css set softtabstop=2 shiftwidth=2
-autocmd BufNewFile,BufRead *.less set softtabstop=2 shiftwidth=2
-autocmd BufNewFile,BufRead *.less setfiletype less
-autocmd BufNewFile,BufRead *.go set noexpandtab
+augroup vimrc
+    autocmd FileType yaml set expandtab
+    autocmd BufNewFile,BufRead *.ru setfiletype ruby
+    autocmd BufNewFile,BufRead *.flow setfiletype yaml
+    autocmd BufNewFile,BufRead *.twig set softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.html.twig set syntax=htmldjango
+    autocmd BufNewFile,BufRead *.xml.twig set syntax=xml
+    autocmd BufNewFile,BufRead *.js.twig set syntax=javascript
+    autocmd BufNewFile,BufRead *.html set softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.rst.inc setfiletype rst
+    autocmd BufNewFile,BufRead *.yml set softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.js set softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.css set softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.less set softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.less setfiletype less
+    autocmd BufNewFile,BufRead *.go set noexpandtab
+augroup END
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
@@ -175,7 +166,10 @@ let g:neosnippet#snippets_directory = '~/.vim/snippets,~/.vim/bundle/snipmate-sn
 let g:user_emmet_settings = { 'indentation': '  ' }
 
 " vim-go
-let g:go_disable_autoinstall = 1
+let g:go_play_open_browser = 0
+let g:go_fmt_command = "gofmt"
+let g:go_fmt_fail_silently = 1
+let g:go_snippet_engine = "neosnippet"
 
 if $SUDO_USER == ''
     " バッファ一覧
