@@ -13,6 +13,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
+autoload -Uz zmv
+alias zmv='noglob zmv -W'
+
 setopt append_history
 setopt auto_list
 setopt auto_menu

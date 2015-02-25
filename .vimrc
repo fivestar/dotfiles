@@ -25,18 +25,21 @@ NeoBundle 'nginx.vim'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'fatih/vim-go'
+NeoBundle 'stephpy/vim-php-cs-fixer'
+NeoBundle 'editorconfig/editorconfig-vim'
 
 if $SUDO_USER == ''
     NeoBundle 'Shougo/neocomplcache'
     NeoBundle 'Shougo/neosnippet'
     NeoBundle 'Shougo/vimproc.vim', {
-          \ 'build' : {
-          \     'windows' : 'tools\\update-dll-mingw',
-          \     'cygwin' : 'make -f make_cygwin.mak',
-          \     'mac' : 'make -f make_mac.mak',
-          \     'unix' : 'make -f make_unix.mak',
-          \    },
-          \ }
+    \ 'build' : {
+    \     'windows' : 'tools\\update-dll-mingw',
+    \     'cygwin' : 'make -f make_cygwin.mak',
+    \     'mac' : 'make -f make_mac.mak',
+    \     'linux' : 'make',
+    \     'unix' : 'gmake',
+    \    },
+    \ }
     NeoBundle 'Shougo/vimfiler'
     NeoBundle 'Shougo/unite.vim'
     NeoBundle 'Shougo/unite-outline'
@@ -154,6 +157,8 @@ augroup vimrc
     autocmd BufNewFile,BufRead *.go set noexpandtab
 augroup END
 
+let mapleader = ","
+
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -170,6 +175,19 @@ let g:go_play_open_browser = 0
 let g:go_fmt_command = "gofmt"
 let g:go_fmt_fail_silently = 1
 let g:go_snippet_engine = "neosnippet"
+
+" php-cs-fixer"
+
+" If php-cs-fixer is in $PATH, you don't need to define line below
+let g:php_cs_fixer_path = "php-cs-fixer"          " define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_level = "symfony"              " which level ?
+""let g:php_cs_fixer_config = "default"             " configuration
+""let g:php_cs_fixer_php_path = "php"               " Path to PHP
+" If you want to define specific fixers:
+""let g:php_cs_fixer_fixers_list = ""
+let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
 if $SUDO_USER == ''
     " バッファ一覧
