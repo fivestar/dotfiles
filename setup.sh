@@ -5,7 +5,7 @@ cd $(dirname $0)
 git submodule init
 git submodule update
 
-for dotfile in .gitconfig .gvimrc .lv .peco .screenrc .vimrc .zshrc
+for dotfile in .gitconfig .gvimrc .lv .peco .screenrc .vimrc .zprofile .zshrc
 do
   rm -fr ~/$dotfile
   ln -vnfs $PWD/$dotfile ~/$dotfile
