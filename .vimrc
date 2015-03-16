@@ -152,6 +152,8 @@ augroup vimrc
     autocmd BufNewFile,BufRead *.yml set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.js set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.css set softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.scss set softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.sass set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.less set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.less setfiletype less
     autocmd BufNewFile,BufRead *.go set noexpandtab

@@ -168,3 +168,5 @@ alias fv="find-vim"
 alias fd="find-cd"
 alias ap="ag-peco"
 alias pk="peco-pkill"
+
+[ -f "$HOME/.zshrc-local" ] && source ~/.zsh_local
