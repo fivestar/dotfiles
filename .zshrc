@@ -169,4 +169,4 @@ alias fd="find-cd"
 alias ap="ag-peco"
 alias pk="peco-pkill"
 
-[ -f "$HOME/.zshrc-local" ] && source ~/.zsh-local
+[ -f "$HOME/.zshrc-local" ] && source ~/.zshrc-local
