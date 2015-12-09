@@ -2,10 +2,6 @@ autoload promptinit; promptinit
 
 autoload -Uz colors; colors
 
-## completion colors
-eval `dircolors`
-export ZLS_COLORS=$LS_COLORS
-
 # completion
 autoload -Uz compinit; compinit -u
 zstyle ':completion:*:default' menu select true
@@ -54,12 +50,27 @@ if [ `uname` = 'Linux' ] && [ `lsb_release -si` = 'Debian' ]; then
     alias sudo='PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/sbin:$PATH sudo -E '
 fi
 
-alias ls='ls -hF --color'
-alias ll='ls -l'
+case ${OSTYPE} in
+    darwin*)
+        alias ls='gls'
+        alias dircolors='gdircolors'
+        export LESSPIPE="/usr/local/bin/src-hilite-lesspipe.sh"
+        ;;
+    linux*)
+        export LESSPIPE="/usr/share/source-highlight/src-hilite-lesspipe.sh"
+        ;;
+esac
+
+alias ls='ls -hAF --color'
+alias ll='ls -lshAF'
 alias grep='grep --color'
 
+## completion colors
+eval `dircolors`
+export ZLS_COLORS=$LS_COLORS
+
 export LESS='-R'
-export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
+export LESSOPEN="| $LESSPIPE %s"
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH:/usr/sbin
 export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 

@@ -110,7 +110,10 @@ set ambiwidth=double " Use twice the width of ASCII characters.
 
 if &term =~ "xterm-256color"
   "colorscheme desert256
-  colorscheme molokai
+  "colorscheme molokai
+
+  set background=dark
+  colorscheme solarized
 endif
 
 "行頭のスペースの連続をハイライトさせる
@@ -157,6 +160,7 @@ augroup vimrc
     autocmd BufNewFile,BufRead *.less set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.less setfiletype less
     autocmd BufNewFile,BufRead *.go set noexpandtab
+    autocmd BufNewFile,BufRead .php_cs setfiletype php
 augroup END
 
 let mapleader = ","
