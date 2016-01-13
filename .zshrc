@@ -78,10 +78,7 @@ export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 [[ -s "$HOME/.rvm/bin" ]] && export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s "$HOME/.nodebrew/current/bin" ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
 
-if [ -s "$HOME/.rbenv/bin" ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-fi
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 if [ -s "$HOME/.phpenv/bin" ]; then
     export PATH="$HOME/.phpenv/bin:$PATH"
