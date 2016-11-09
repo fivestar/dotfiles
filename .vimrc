@@ -25,7 +25,6 @@ NeoBundle 'nginx.vim'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'fatih/vim-go'
-NeoBundle 'stephpy/vim-php-cs-fixer'
 NeoBundle 'editorconfig/editorconfig-vim'
 
 if $SUDO_USER == ''
@@ -145,14 +144,11 @@ endif
 
 augroup vimrc
     autocmd FileType yaml set expandtab
-    autocmd BufNewFile,BufRead *.ru setfiletype ruby
-    autocmd BufNewFile,BufRead *.flow setfiletype yaml
     autocmd BufNewFile,BufRead *.twig set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.html.twig set syntax=htmldjango
     autocmd BufNewFile,BufRead *.xml.twig set syntax=xml
     autocmd BufNewFile,BufRead *.js.twig set syntax=javascript
     autocmd BufNewFile,BufRead *.html set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.rst.inc setfiletype rst
     autocmd BufNewFile,BufRead *.yml set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.js set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.css set softtabstop=2 shiftwidth=2
@@ -183,19 +179,6 @@ let g:go_fmt_command = "gofmt"
 let g:go_fmt_fail_silently = 1
 let g:go_snippet_engine = "neosnippet"
 
-" php-cs-fixer"
-
-" If php-cs-fixer is in $PATH, you don't need to define line below
-let g:php_cs_fixer_path = "php-cs-fixer"          " define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "symfony"              " which level ?
-""let g:php_cs_fixer_config = "default"             " configuration
-""let g:php_cs_fixer_php_path = "php"               " Path to PHP
-" If you want to define specific fixers:
-""let g:php_cs_fixer_fixers_list = ""
-let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
-
 if $SUDO_USER == ''
     " バッファ一覧
     noremap <C-P> :Unite buffer<CR>
@@ -222,33 +205,3 @@ if $SUDO_USER == ''
     nnoremap <C-o> :Unite outline<Return>
 endif
 
-"set spell
-"set spelllang=en,cjk
-"
-"fun! s:SpellConf()
-"  redir! => syntax
-"  silent syntax
-"  redir END
-"
-"  set spell
-"
-"  if syntax =~? '/<comment\>'
-"    syntax spell default
-"    syntax match SpellMaybeCode /\<\h\l*[_A-Z]\h\{-}\>/ contains=@NoSpell transparent containedin=Comment contained
-"  else
-"    syntax spell toplevel
-"    syntax match SpellMaybeCode /\<\h\l*[_A-Z]\h\{-}\>/ contains=@NoSpell transparent
-"  endif
-"
-"  syntax cluster Spell add=SpellNotAscii,SpellMaybeCode
-"endfunc
-"
-"augroup spell_check
-"  autocmd!
-"  autocmd BufReadPost,BufNewFile,Syntax * call s:SpellConf()
-"augroup END
-
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck

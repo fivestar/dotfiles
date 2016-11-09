@@ -69,8 +69,9 @@ alias grep='grep --color'
 eval `dircolors`
 export ZLS_COLORS=$LS_COLORS
 
-export LESS='-R'
+export LESS='-g -i -M -R -W -z-4 -x4'
 export LESSOPEN="| $LESSPIPE %s"
+export PAGER=less
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH:/usr/sbin
 export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 
