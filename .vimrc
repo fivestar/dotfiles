@@ -1,56 +1,53 @@
 scriptencoding utf-8
 
-if has('vim_starting')
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle 'Align'
-NeoBundle 'sudo.vim'
-NeoBundle 'desert256.vim'
-NeoBundle 'molokai'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'nginx.vim'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'Blackrush/vim-gocode'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'editorconfig/editorconfig-vim'
-
-if $SUDO_USER == ''
-    NeoBundle 'Shougo/neocomplcache'
-    NeoBundle 'Shougo/neosnippet'
-    NeoBundle 'Shougo/neosnippet-snippets'
-    NeoBundle 'Shougo/vimproc.vim', {
-    \ 'build' : {
-    \     'windows' : 'tools\\update-dll-mingw',
-    \     'cygwin' : 'make -f make_cygwin.mak',
-    \     'mac' : 'make -f make_mac.mak',
-    \     'linux' : 'make',
-    \     'unix' : 'gmake',
-    \    },
-    \ }
-    NeoBundle 'Shougo/vimfiler'
-    NeoBundle 'Shougo/unite.vim'
-    NeoBundle 'Shougo/unite-outline'
-endif
-
-call neobundle#end()
+set runtimepath+=~/repos/github.com/Shougo/dein.vim
 
 " Required:
-" filetype plugin indent on
+call dein#begin(expand('~/.vim/dein'))
 
-syntax on
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
+" Add or remove your plugins here:
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/neocomplcache')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/unite-outline')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('mattn/emmet-vim')
+call dein#add('fatih/vim-go')
+call dein#add('pearofducks/ansible-vim')
+
+
+
+" You can specify revision/branch/tag.
+call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+" Required:
+call dein#end()
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
+
+
 
 set backspace=2
 set autoindent
@@ -171,6 +168,8 @@ let g:neocomplcache_auto_completion_start_length = 2
 let g:neosnippet#snippets_directory = '~/.vim/snippets,~/.vim/bundle/snipmate-snippets/snippets'
 
 " emmet
+" `Ctrl + e` -> `,`
+let g:user_emmet_leader_key='<C-E>'
 let g:user_emmet_settings = { 'indentation': '  ' }
 
 " vim-go
