@@ -1,0 +1,73 @@
+"*":
+  "atom-alignment": {}
+  "atom-beautify":
+    general:
+      _analyticsUserId: "b3bb3584-e565-4e6f-8ae7-6fbda902c106"
+    php:
+      beautify_on_save: true
+      cs_fixer_path: "/Users/fivestar/bin/php-cs-fixer"
+      fixers: "-unalign_equals,-multiple_use,array_element_no_space_before_comma,array_element_white_space_after_comma,concat_without_spaces,declare_equal_normalize,duplicate_semicolon,empty_return,extra_empty_lines,multiline_array_trailing_comma,namespace_no_leading_whitespace,new_with_braces,no_blank_lines_after_class_opening,no_empty_lines_after_phpdocs,object_operator,operators_spaces,phpdoc_annotation_without_dot,phpdoc_indent,phpdoc_no_access,phpdoc_no_empty_return,phpdoc_no_package,phpdoc_params,phpdoc_scalar,phpdoc_separation,phpdoc_to_comment,phpdoc_trim,phpdoc_type_to_var,phpdoc_types,phpdoc_var_without_name,remove_leading_slash_use,remove_lines_between_uses,return,single_array_no_trailing_comma,spaces_before_semicolon,spaces_cast,standardize_not_equal,ternary_spaces,trim_array_spaces,unused_use,whitespacy_lines,header_comment,no_blank_lines_before_namespace,ordered_use,short_array_syntax"
+      level: "psr2"
+  "autocomplete-php": {}
+  core:
+    disabledPackages: [
+      "language-toml"
+      "language-property-list"
+    ]
+    projectHome: "/Users/fivestar/repos"
+    telemetryConsent: "no"
+    themes: [
+      "one-light-ui"
+      "solarized-dark-syntax"
+    ]
+  docblockr:
+    param_description: false
+    return_description: false
+    spacer_between_sections: true
+  editor:
+    backUpBeforeSaving: true
+    fontFamily: "\"Fira Mono\""
+    invisibles: {}
+    softWrap: true
+    tabLength: 4
+  emmet: {}
+  "exception-reporting":
+    userId: "44ff82b5-bac1-28e3-d6eb-a6393d9edb9f"
+  minimap:
+    plugins:
+      "minimap-autohide": true
+      "minimap-autohideDecorationsZIndex": 0
+  "tree-view":
+    hideVcsIgnoredFiles: true
+  "vim-mode": {}
+  welcome:
+    showOnStartup: false
+  whitespace:
+    ignoreWhitespaceOnCurrentLine: false
+".babel.regexp.source":
+  editor:
+    tabLength: 4
+".basic.html.text":
+  editor:
+    tabLength: 2
+".css.source":
+  editor:
+    tabLength: 2
+".html.text.twig":
+  editor:
+    tabLength: 2
+".js.source":
+  editor:
+    tabLength: 2
+".sass.source":
+  editor:
+    tabLength: 2
+".source.yaml":
+  editor:
+    tabLength: 2
+".text.twig.xml":
+  editor:
+    tabLength: 2
+".text.xml.xsl":
+  editor:
+    tabLength: 2

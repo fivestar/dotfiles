@@ -141,6 +141,7 @@ endif
 
 augroup vimrc
     autocmd FileType yaml set expandtab
+    autocmd BufNewFile,BufRead *.json set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.twig set softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.html.twig set syntax=htmldjango
     autocmd BufNewFile,BufRead *.xml.twig set syntax=xml
