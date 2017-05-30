@@ -64,6 +64,7 @@ set softtabstop=4
 set shortmess+=I
 set list
 set listchars=tab:>-,extends:>,precedes:<,trail:-
+set modeline
 set number
 set showcmd
 set showmatch
