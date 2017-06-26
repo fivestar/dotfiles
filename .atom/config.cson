@@ -17,6 +17,7 @@
       "language-property-list"
       "atom-beautify"
       "symbols-view"
+      "atom-autocomplete-php"
     ]
     projectHome: "/Users/fivestar/repos"
     telemetryConsent: "no"
@@ -31,7 +32,6 @@
   editor:
     backUpBeforeSaving: true
     fontFamily: "\"Fira Mono\""
-    fontSize: 15
     invisibles: {}
     softWrap: true
     tabLength: 4
@@ -41,7 +41,7 @@
   "file-types":
     "\\.html+(phone|pc|tablet)\\.twig": "html.twig"
   "linter-ui-default":
-    showPanel: true
+    panelHeight: 69
   minimap:
     plugins:
       "minimap-autohide": true
