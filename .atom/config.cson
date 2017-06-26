@@ -16,8 +16,6 @@
       "language-toml"
       "language-property-list"
       "atom-beautify"
-      "symbols-view"
-      "atom-autocomplete-php"
     ]
     projectHome: "/Users/fivestar/repos"
     telemetryConsent: "no"
@@ -31,7 +29,6 @@
     return_description: false
   editor:
     backUpBeforeSaving: true
-    fontFamily: "\"Fira Mono\""
     invisibles: {}
     softWrap: true
     tabLength: 4
