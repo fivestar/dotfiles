@@ -30,6 +30,7 @@
   editor:
     backUpBeforeSaving: true
     invisibles: {}
+    showInvisibles: true
     softWrap: true
     tabLength: 4
   emmet: {}
@@ -44,9 +45,8 @@
       "minimap-autohide": true
       "minimap-autohideDecorationsZIndex": 0
   "php-cs-fixer":
-    executablePath: "/Users/fivestar/bin/php-cs-fixer"
+    executablePath: "/usr/local/bin/php-cs-fixer"
     executeOnSave: true
-    rules: "@PSR2,-single_import_per_statement"
   "tree-view": {}
   "vim-mode": {}
   "vim-mode-plus": {}
