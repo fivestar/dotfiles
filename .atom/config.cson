@@ -9,6 +9,8 @@
       level: "psr2"
     twig:
       indent_size: 2
+  "atom-ide-ui":
+    "atom-ide-code-format": {}
   "autocomplete-php": {}
   core:
     closeDeletedFileTabs: true
@@ -20,7 +22,7 @@
     projectHome: "/Users/fivestar/repos"
     telemetryConsent: "no"
     themes: [
-      "one-light-ui"
+      "atom-material-ui"
       "solarized-dark-syntax"
     ]
     warnOnLargeFileLimit: 1
@@ -36,6 +38,7 @@
   emmet: {}
   "exception-reporting":
     userId: "44ff82b5-bac1-28e3-d6eb-a6393d9edb9f"
+  "file-icons": {}
   "file-types":
     "\\.html+(phone|pc|tablet)\\.twig": "html.twig"
   "linter-ui-default":
@@ -49,7 +52,8 @@
     executeOnSave: true
   "tree-view": {}
   "vim-mode": {}
-  "vim-mode-plus": {}
+  "vim-mode-plus":
+    notifiedCoffeeScriptNoLongerSupportedToExtendVMP: true
   welcome:
     showOnStartup: false
   whitespace:
