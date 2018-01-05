@@ -52,8 +52,7 @@
     executeOnSave: true
   "tree-view": {}
   "vim-mode": {}
-  "vim-mode-plus":
-    notifiedCoffeeScriptNoLongerSupportedToExtendVMP: true
+  "vim-mode-plus": {}
   welcome:
     showOnStartup: false
   whitespace:

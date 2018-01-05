@@ -87,7 +87,9 @@ if [ -s "$HOME/.phpenv/bin" ]; then
 fi
 
 export GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
 
 function git_prompt_info {
     local ref st color
@@ -177,5 +179,6 @@ alias fv="find-vim"
 alias fd="find-cd"
 alias ap="ag-peco"
 alias pk="peco-pkill"
+alias vi="vim"
 
 [ -f "$HOME/.zshrc-local" ] && source ~/.zshrc-local
