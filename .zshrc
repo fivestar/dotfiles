@@ -86,28 +86,32 @@ if [ -s "$HOME/.phpenv/bin" ]; then
     eval "$(phpenv init -)"
 fi
 
-export GOPATH=$HOME/go
+export GOPATH=$HOME
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
 function git_prompt_info {
-    local ref st color
+    local ref st color face
 
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
 
     st=`git status 2> /dev/null`
     if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
         color=${fg[green]}
+        face="*´﹀\`*)ﾉ"
     elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
         color=${fg[yellow]}
+        face="ω✧´)"
     elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
         color=${fg_bold[red]}
+        face="･ω･\` )"
     else
         color=${fg[red]}
+        face="･\`ω･)و"
     fi
 
-    echo " on %{$color%}${ref#refs/heads/}%{$reset_color%}"
+    echo " on %{$color%}${ref#refs/heads/} |%{$face%}%{$reset_color%}"
 }
 
 PROMPT='

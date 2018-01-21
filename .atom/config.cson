@@ -11,6 +11,8 @@
       indent_size: 2
   "atom-ide-ui":
     "atom-ide-code-format": {}
+  "atom-package-deps":
+    ignored: []
   "autocomplete-php": {}
   core:
     closeDeletedFileTabs: true
@@ -32,6 +34,7 @@
   editor:
     backUpBeforeSaving: true
     invisibles: {}
+    scrollPastEnd: true
     showInvisibles: true
     softWrap: true
     tabLength: 4
@@ -82,9 +85,6 @@
   editor:
     tabLength: 2
 ".source.twig.yaml":
-  editor:
-    tabLength: 2
-".source.yaml":
   editor:
     tabLength: 2
 ".text.twig.xml":
