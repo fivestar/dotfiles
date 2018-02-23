@@ -33,6 +33,7 @@
     return_description: false
   editor:
     backUpBeforeSaving: true
+    fontSize: 15
     invisibles: {}
     scrollPastEnd: true
     showInvisibles: true

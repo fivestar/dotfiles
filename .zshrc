@@ -122,12 +122,16 @@ function ag-vim () {
     vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
 }
 
+function find-files () {
+    find . -type d -name '.git' -prune -o -type f
+}
+
 function find-vim () {
-    vim $(find . -type f | peco)
+    vim $(find-files | peco)
 }
 
 function find-cd () {
-    local DIR=$(find . -type d | peco)
+    local DIR=$(find-files | peco)
 
     if [ -n "$DIR" ] ; then
         DIR=${DIR%/*}
@@ -186,3 +190,9 @@ alias pk="peco-pkill"
 alias vi="vim"
 
 [ -f "$HOME/.zshrc-local" ] && source ~/.zshrc-local
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi

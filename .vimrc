@@ -24,6 +24,7 @@ call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/unite-outline')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('altercation/vim-colors-solarized')
+call dein#add('evidens/vim-twig')
 call dein#add('mattn/emmet-vim')
 call dein#add('fatih/vim-go')
 call dein#add('pearofducks/ansible-vim')
@@ -141,21 +142,15 @@ if has("syntax")
 endif
 
 augroup vimrc
-    autocmd FileType yaml set expandtab
-    autocmd BufNewFile,BufRead *.json set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.twig set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.html.twig set syntax=htmldjango
-    autocmd BufNewFile,BufRead *.xml.twig set syntax=xml
-    autocmd BufNewFile,BufRead *.js.twig set syntax=javascript
-    autocmd BufNewFile,BufRead *.html set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.yml set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.js set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.css set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.scss set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.sass set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.less set softtabstop=2 shiftwidth=2
-    autocmd BufNewFile,BufRead *.less setfiletype less
-    autocmd BufNewFile,BufRead *.go set noexpandtab
+    autocmd FileType css set softtabstop=2 shiftwidth=2
+    autocmd FileType go set noexpandtab
+    autocmd FileType javascript set softtabstop=2 shiftwidth=2
+    autocmd FileType json set softtabstop=2 shiftwidth=2
+    autocmd FileType html set softtabstop=2 shiftwidth=2
+    autocmd FileType html.twig set softtabstop=2 shiftwidth=2
+    autocmd FileType scss set softtabstop=2 shiftwidth=2
+    autocmd FileType yaml set softtabstop=2 shiftwidth=2
+
     autocmd BufNewFile,BufRead .php_cs setfiletype php
 augroup END
 
