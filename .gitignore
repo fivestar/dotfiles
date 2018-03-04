@@ -3,10 +3,3 @@
 .DS_Store
 ._*
 
-.buildpath
-.project
-.settings
-.php-version
-
-phpunit.xml
-test_bootstrap_nondb.php
