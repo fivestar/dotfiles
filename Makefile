@@ -2,13 +2,14 @@ EXCLUDES := .DS_Store .git
 DOTFILES := $(filter-out $(EXCLUDES), $(wildcard .??*))
 
 .PHONY: all
-all:
-
-up: update install
+all: up
 
 .PHONY: list
 list:
 	@$(foreach dotfile, $(DOTFILES), ls -dF $(dotfile);)
+
+.PHONY: up
+up: update install
 
 .PHONY: update
 update:
