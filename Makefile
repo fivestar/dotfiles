@@ -1,5 +1,6 @@
-EXCLUDES := .DS_Store .git
-DOTFILES := $(filter-out $(EXCLUDES), $(wildcard .??*))
+DOTEXCLUDES := .DS_Store .git
+DOTTARGETS  := $(wildcard .??*)
+DOTFILES    := $(filter-out $(DOTEXCLUDES), $(DOTTARGETS))
 
 .PHONY: all
 all: up
@@ -8,19 +9,18 @@ all: up
 list:
 	@$(foreach dotfile, $(DOTFILES), ls -dF $(dotfile);)
 
-.PHONY: up
-up: update install
-
 .PHONY: update
 update:
 	git pull origin master
 
-.PHONY: install
-install:
+.PHONY: up
+up: update deploy
+
+.PHONY: deploy
+deploy:
 	@$(foreach dotfile, $(DOTFILES), ln -vnfs $(abspath $(dotfile)) $(HOME)/$(dotfile);)
 
 .PHONY: clean
 clean:
 	@-$(foreach dotfile, $(DOTFILES), rm -vrf $(HOME)/$(dotfile);)
-
 
