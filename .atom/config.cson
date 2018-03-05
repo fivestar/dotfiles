@@ -88,6 +88,9 @@
 ".source.twig.yaml":
   editor:
     tabLength: 2
+".source.yaml":
+  editor:
+    tabLength: 2
 ".text.twig.xml":
   editor:
     tabLength: 2
