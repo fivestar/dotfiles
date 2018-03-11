@@ -1,41 +1,38 @@
 scriptencoding utf-8
 
-
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
 " Required:
-set runtimepath+=~/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-call dein#begin(expand('~/.vim/dein'))
+if dein#load_state($HOME . '/.cache/dein')
+  call dein#begin($HOME . '/.cache/dein')
 
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
+  " Let dein manage dein
+  " Required:
+  call dein#add($HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-" Add or remove your plugins here:
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
-call dein#add('Shougo/neocomplcache')
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/unite-outline')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('altercation/vim-colors-solarized')
-call dein#add('evidens/vim-twig')
-call dein#add('mattn/emmet-vim')
-call dein#add('fatih/vim-go')
-call dein#add('pearofducks/ansible-vim')
+  " Add or remove your plugins here:
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('Shougo/neocomplcache')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/unite-outline')
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('evidens/vim-twig')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('fatih/vim-go')
+  call dein#add('pearofducks/ansible-vim')
 
-
-
-" You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-" Required:
-call dein#end()
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
 
 " Required:
 filetype plugin indent on
@@ -47,7 +44,6 @@ if dein#check_install()
 endif
 
 "End dein Scripts-------------------------
-
 
 
 set backspace=2

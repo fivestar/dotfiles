@@ -64,6 +64,8 @@
     "\\.html+(phone|pc|tablet)\\.twig": "html.twig"
   "linter-ui-default":
     panelHeight: 69
+  "markdown-preview":
+    breakOnSingleNewline: true
   minimap:
     plugins:
       "minimap-autohide": true
