@@ -3,7 +3,7 @@ DOTTARGETS  := $(wildcard .??*)
 DOTFILES    := $(filter-out $(DOTEXCLUDES), $(DOTTARGETS))
 
 .PHONY: all
-all: up
+all: update deploy
 
 .PHONY: list
 list:
@@ -12,9 +12,6 @@ list:
 .PHONY: update
 update:
 	git pull origin master
-
-.PHONY: up
-up: update deploy
 
 .PHONY: deploy
 deploy:

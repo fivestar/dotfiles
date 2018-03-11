@@ -20,3 +20,4 @@
     ranking = shortlog -s -n --no-merges
 [include]
     path = ~/.gitconfig.local
+
