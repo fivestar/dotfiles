@@ -1,48 +1,39 @@
-scriptencoding utf-8
-
 "dein Scripts-----------------------------
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible
 endif
 
-" Required:
-set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-" Required:
-if dein#load_state($HOME . '/.cache/dein')
-  call dein#begin($HOME . '/.cache/dein')
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
 
-  " Let dein manage dein
-  " Required:
-  call dein#add($HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('~/.cache/dein')
 
-  " Add or remove your plugins here:
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/neocomplcache')
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/unite-outline')
-  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  " requirements: `pip3 install neovim`
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('Shougo/deoppet.nvim')
+  call dein#add('Shougo/denite.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
   call dein#add('altercation/vim-colors-solarized')
-  call dein#add('evidens/vim-twig')
-  call dein#add('mattn/emmet-vim')
   call dein#add('fatih/vim-go')
   call dein#add('pearofducks/ansible-vim')
 
-  " Required:
   call dein#end()
   call dein#save_state()
 endif
 
-" Required:
 filetype plugin indent on
 syntax enable
 
-" If you want to install not installed plugins on startup.
 if dein#check_install()
   call dein#install()
 endif
-
 "End dein Scripts-------------------------
 
 
@@ -152,48 +143,11 @@ augroup END
 
 let mapleader = ","
 
-" neocomplcache
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_auto_completion_start_length = 2
-let g:neosnippet#snippets_directory = '~/.vim/snippets,~/.vim/bundle/snipmate-snippets/snippets'
-
-" emmet
-" `Ctrl + e` -> `,`
-let g:user_emmet_leader_key='<C-E>'
-let g:user_emmet_settings = { 'indentation': '  ' }
+" deoplete
+let g:deoplete#enable_at_startup = 1
 
 " vim-go
 let g:go_play_open_browser = 0
 let g:go_fmt_command = "gofmt"
 let g:go_fmt_fail_silently = 1
-let g:go_snippet_engine = "neosnippet"
-
-if $SUDO_USER == ''
-    " バッファ一覧
-    noremap <C-P> :Unite buffer<CR>
-    " ファイル一覧
-    noremap <C-N> :Unite -buffer-name=file file<CR>
-    " 最近使ったファイルの一覧
-    noremap <C-Z> :Unite file_mru<CR>
-    "" ウィンドウを分割して開く
-    au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-    au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-    " ウィンドウを縦に分割して開く
-    au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-    au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-    " ESCキーを2回押すと終了する
-    au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-    au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-    " 初期設定関数を起動する
-    au FileType unite call s:unite_my_settings()
-    function! s:unite_my_settings()
-      " Overwrite settings.
-    endfunction
-
-    " unite-outline
-    nnoremap <C-o> :Unite outline<Return>
-endif
-
+let g:go_snippet_engine = "deoppet"
