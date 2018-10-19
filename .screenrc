@@ -4,6 +4,11 @@ encoding utf8 utf8
 
 escape ^z^z
 
+# no zombie
+zombie
+
+bind x
+
 startup_message off
 vbell off
 
@@ -12,8 +17,27 @@ termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 term xterm-256color
 defbce "on"
 
-defscrollback 30000
+defscrollback 16383
 msgminwait 0
 
 hardstatus alwayslastline "[%Y/%m/%d %c] %`%-w%{=b bw}%n %t%{-}%+w"
+
+
+bind j eval 'focus down'
+bind k eval 'focus up'
+bind h eval 'focus left'
+bind l eval 'focus right'
+bind t eval 'focus top'
+bind b eval 'focus bottom'
+
+bind w eval 'echo "Operate window"' 'command -c operate'
+bind -c operate j eval 'focus down' 'command -c operate'
+bind -c operate k eval 'focus up' 'command -c operate'
+bind -c operate h eval 'focus left' 'command -c operate'
+bind -c operate l eval 'focus right' 'command -c operate'
+bind -c operate t eval 'focus top' 'command -c operate'
+bind -c operate + eval 'resize -v +1' 'command -c operate'
+bind -c operate - eval 'resize -v -1' 'command -c operate'
+bind -c operate > eval 'resize -h +1' 'command -c operate'
+bind -c operate < eval 'resize -h -1' 'command -c operate'
 
