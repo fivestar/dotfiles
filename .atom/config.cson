@@ -11,7 +11,8 @@
     twig:
       indent_size: 2
   "atom-ide-ui":
-    "atom-ide-code-format": {}
+    "atom-ide-code-format":
+      formatOnSave: true
     use: {}
   "atom-material-ui":
     colors:
