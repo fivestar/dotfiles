@@ -29,12 +29,13 @@
     disabledPackages: [
       "language-toml"
       "language-property-list"
+      "activate-power-mode"
     ]
     projectHome: "/Users/fivestar/repos"
     telemetryConsent: "no"
     themes: [
       "atom-material-ui"
-      "solarized-dark-syntax"
+      "atom-material-syntax"
     ]
     warnOnLargeFileLimit: 1
   docblockr:
