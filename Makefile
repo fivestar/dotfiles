@@ -11,7 +11,7 @@ list:
 
 .PHONY: update
 update:
-	git pull
+	@git pull
 
 .PHONY: deploy
 deploy:
