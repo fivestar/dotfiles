@@ -105,17 +105,17 @@ function git_prompt_info {
         face="ω✧´)"
     elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
         color=${fg_bold[red]}
-        face="･ω･\` )"
+        face="_・ω・)_"
     else
         color=${fg[red]}
-        face="･\`ω･)و"
+        face="_๑òωó)_"
     fi
 
     echo " on %{$color%}${ref#refs/heads/} |%{$face%}%{$reset_color%}"
 }
 
 PROMPT='
-%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)
+%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)
 %% '
 
 function ag-vim () {
