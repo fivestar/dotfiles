@@ -31,7 +31,7 @@
       "language-property-list"
       "activate-power-mode"
     ]
-    projectHome: "/Users/fivestar/repos"
+    projectHome: "/Users/fivestar/src"
     telemetryConsent: "no"
     themes: [
       "atom-material-ui"
@@ -54,6 +54,8 @@
   "file-icons": {}
   "file-types":
     "\\.html+(phone|pc|tablet)\\.twig": "html.twig"
+  "find-and-replace":
+    useRipgrep: true
   "ide-flowtype":
     tryFlowBin: true
   "linter-ui-default":
