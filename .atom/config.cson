@@ -56,6 +56,9 @@
     "\\.html+(phone|pc|tablet)\\.twig": "html.twig"
   "find-and-replace":
     useRipgrep: true
+  "go-plus":
+    lint:
+      tool: "golangci-lint"
   "ide-flowtype":
     tryFlowBin: true
   "linter-ui-default":

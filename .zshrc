@@ -189,6 +189,8 @@ alias ap="ag-peco"
 alias pk="peco-pkill"
 alias vi="vim"
 
+eval "$(direnv hook zsh)"
+
 [ -f "$HOME/.zshrc.local" ] && source ~/.zshrc.local
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -196,4 +198,5 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
 
