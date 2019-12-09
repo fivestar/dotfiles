@@ -61,6 +61,7 @@
       tool: "golangci-lint"
   "ide-flowtype":
     tryFlowBin: true
+  "ide-go": {}
   "linter-ui-default":
     panelHeight: 69
   "markdown-preview":
