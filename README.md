@@ -1,5 +1,5 @@
 # dotfiles
 
-```console
-$ make
+```bash
+make
 ```
