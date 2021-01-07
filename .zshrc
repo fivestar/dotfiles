@@ -92,26 +92,22 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
 function git_prompt_info {
-    local ref st color face
+    local ref st color
 
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
 
     st=`git status 2> /dev/null`
     if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
         color=${fg[green]}
-        face="*´﹀\`*)ﾉ"
     elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
         color=${fg[yellow]}
-        face="ω✧´)"
     elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
         color=${fg_bold[red]}
-        face="_・ω・)_"
     else
         color=${fg[red]}
-        face="_๑òωó)_"
     fi
 
-    echo " on %{$color%}${ref#refs/heads/} |%{$face%}%{$reset_color%}"
+    echo " on %{$color%}${ref#refs/heads/}%{$reset_color%}"
 }
 
 PROMPT='

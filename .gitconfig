@@ -18,6 +18,8 @@
     up = pull --rebase --prune
     graph = log --pretty=format:\"%C(yellow)%h%Creset %C(magenta)%ad%Creset | %s%Cred%d%Creset [%Cgreen%an%Creset]\" --graph --date=short
     ranking = shortlog -s -n --no-merges
+[pull]
+    rebase = false
 [url "git@github.com:"]
     insteadOf = https://github.com/
 [ghq]
