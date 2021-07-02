@@ -7,7 +7,7 @@ autoload -Uz compinit; compinit -u
 zstyle ':completion:*:default' menu select true
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+zstyle ':completion:*:sudo:*' command-path /opt/homebrew/sbin /opt/homebrew/bin /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
@@ -43,8 +43,15 @@ setopt hist_ignore_space
 TZ='Asia/Tokyo'; export TZ
 export LANG=en_US.UTF-8
 
+if [ -s "/opt/homebrew/bin/brew" ]; then
+    HOMEBREW_DIR="/opt/homebrew"
+else
+    HOMEBREW_DIR="/usr/local"
+fi
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
+[[ -s "$HOMEBREW_DIR/bin/brew" ]] && eval "$($HOMEBREW_DIR/bin/brew shellenv)"
 
 if [ `uname` = 'Linux' ] && [ `lsb_release -si` = 'Debian' ]; then
     alias sudo='PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/sbin:$PATH sudo -E '
@@ -54,7 +61,7 @@ case ${OSTYPE} in
     darwin*)
         alias ls='gls'
         alias dircolors='gdircolors'
-        export LESSPIPE="/usr/local/bin/src-hilite-lesspipe.sh"
+        export LESSPIPE="$HOMEBREW_DIR/bin/src-hilite-lesspipe.sh"
         ;;
     linux*)
         export LESSPIPE="/usr/share/source-highlight/src-hilite-lesspipe.sh"
@@ -72,10 +79,10 @@ export ZLS_COLORS=$LS_COLORS
 export LESS='-g -i -M -R -W -z-4 -x4'
 export LESSOPEN="| $LESSPIPE %s"
 export PAGER=less
-export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH:/usr/sbin
+export PATH=$HOME/bin:$HOMEBREW_DIR/sbin:$HOMEBREW_DIR/bin:$PATH:/usr/sbin
 export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 
-[[ -s "/usr/local/opt/coreutils/libexec/gnubin" ]] && export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+[[ -s "$HOMEBREW_DIR/opt/coreutils/libexec/gnubin" ]] && export PATH="$HOMEBREW_DIR/opt/coreutils/libexec/gnubin:$PATH"
 [[ -s "$HOME/.rvm/bin" ]] && export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s "$HOME/.nodebrew/current/bin" ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
 
@@ -87,7 +94,7 @@ if [ -s "$HOME/.phpenv/bin" ]; then
 fi
 
 export GOPATH=$HOME
-export GOROOT=/usr/local/opt/go/libexec
+export GOROOT=$HOMEBREW_DIR/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
@@ -110,8 +117,11 @@ function git_prompt_info {
     echo " on %{$color%}${ref#refs/heads/}%{$reset_color%}"
 }
 
+source <(kubectl completion zsh)
+source "$HOMEBREW_DIR/opt/kube-ps1/share/kube-ps1.sh"
+
 PROMPT='
-%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)
+%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info) $(kube_ps1)
 %% '
 
 function ag-vim () {
@@ -189,10 +199,7 @@ eval "$(direnv hook zsh)"
 
 [ -f "$HOME/.zshrc.local" ] && source ~/.zshrc.local
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+alias ga="gcloud auth login --update-adc"
 
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
-
-
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
