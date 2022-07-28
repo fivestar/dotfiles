@@ -1,41 +1,48 @@
 "dein Scripts-----------------------------
 if &compatible
-  set nocompatible
+  set nocompatible               " Be iMproved
 endif
 
-" Add the dein installation directory into runtimepath
+" Required:
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
+" Required:
+call dein#begin('~/.cache/dein')
 
-  call dein#add('~/.cache/dein')
+" Let dein manage dein
+" Required:
+call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-  " requirements: `pip3 install neovim`
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('Shougo/deoppet.nvim')
-  call dein#add('Shougo/denite.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
+" Add or remove your plugins here like this:
+"call dein#add('Shougo/neosnippet.vim')
+"call dein#add('Shougo/neosnippet-snippets')
 
-  call dein#add('altercation/vim-colors-solarized')
-  call dein#add('fatih/vim-go')
-  call dein#add('pearofducks/ansible-vim')
+" requirements: `pip3 install neovim`
+"call dein#add('Shougo/deoplete.nvim')
+"call dein#add('Shougo/deoppet.nvim')
+"call dein#add('Shougo/denite.nvim')
+"if !has('nvim')
+"  call dein#add('roxma/nvim-yarp')
+"  call dein#add('roxma/vim-hug-neovim-rpc')
+"endif
 
-  call dein#end()
-  call dein#save_state()
-endif
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('fatih/vim-go')
+call dein#add('pearofducks/ansible-vim')
 
+" Required:
+call dein#end()
+
+" Required:
 filetype plugin indent on
 syntax enable
 
+" If you want to install not installed plugins on startup.
 if dein#check_install()
   call dein#install()
 endif
-"End dein Scripts-------------------------
 
+"End dein Scripts-------------------------
 
 set backspace=2
 set autoindent
@@ -144,7 +151,7 @@ augroup END
 let mapleader = ","
 
 " deoplete
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 
 " vim-go
 let g:go_play_open_browser = 0
