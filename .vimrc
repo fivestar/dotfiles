@@ -28,6 +28,7 @@ call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
 call dein#add('altercation/vim-colors-solarized')
 call dein#add('fatih/vim-go')
+call dein#add('hashivim/vim-terraform')
 call dein#add('pearofducks/ansible-vim')
 
 " Required:
