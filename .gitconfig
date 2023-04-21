@@ -5,6 +5,8 @@
     user = fivestar
 [color]
     ui = auto
+[commit]
+    template = ~/.gitmessage
 [core]
     excludesfile = ~/.gitignore
     editor = /usr/bin/vim
@@ -26,4 +28,5 @@
     root = ~/src
 [include]
     path = ~/.gitconfig.local
-
+[init]
+    defaultBranch = main
