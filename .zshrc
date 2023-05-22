@@ -3,7 +3,9 @@ autoload promptinit; promptinit
 autoload -Uz colors; colors
 
 # completion
-autoload -Uz compinit; compinit -u
+autoload -Uz bashcompinit && bashcompinit
+autoload -Uz compinit; compinit
+
 zstyle ':completion:*:default' menu select true
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -49,10 +51,6 @@ else
     HOMEBREW_DIR="/usr/local"
 fi
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-[[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
-[[ -s "$HOMEBREW_DIR/bin/brew" ]] && eval "$($HOMEBREW_DIR/bin/brew shellenv)"
-
 if [ `uname` = 'Linux' ] && [ `lsb_release -si` = 'Debian' ]; then
     alias sudo='PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/sbin:$PATH sudo -E '
 fi
@@ -82,21 +80,14 @@ export PAGER=less
 export PATH=$HOME/bin:$HOMEBREW_DIR/sbin:$HOMEBREW_DIR/bin:$PATH:/usr/sbin
 export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 
+[[ -s "$HOMEBREW_DIR/bin/brew" ]] && eval "$($HOMEBREW_DIR/bin/brew shellenv)"
 [[ -s "$HOMEBREW_DIR/opt/coreutils/libexec/gnubin" ]] && export PATH="$HOMEBREW_DIR/opt/coreutils/libexec/gnubin:$PATH"
-[[ -s "$HOME/.rvm/bin" ]] && export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-[[ -s "$HOME/.nodebrew/current/bin" ]] && export PATH=$HOME/.nodebrew/current/bin:$PATH
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-if [ -s "$HOME/.phpenv/bin" ]; then
-    export PATH="$HOME/.phpenv/bin:$PATH"
-    eval "$(phpenv init -)"
-fi
+[[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
 
 export GOPATH=$HOME
 export GOROOT=$HOMEBREW_DIR/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 
 function git_prompt_info {
     local ref st color
@@ -118,6 +109,9 @@ function git_prompt_info {
 }
 
 source <(kubectl completion zsh)
+alias k=kubectl
+complete -o default -F __start_kubectl k
+
 source "$HOMEBREW_DIR/opt/kube-ps1/share/kube-ps1.sh"
 
 PROMPT='
@@ -195,12 +189,12 @@ alias ap="ag-peco"
 alias pk="peco-pkill"
 alias vi="vim"
 
-eval "$(direnv hook zsh)"
-
-[ -f "$HOME/.zshrc.local" ] && source ~/.zshrc.local
-
 alias ga="gcloud auth login --update-adc"
 
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+eval "$(direnv hook zsh)"
+
+[ -f "$HOME/.zshrc.local" ] && source ~/.zshrc.local
 
