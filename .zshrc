@@ -2,6 +2,8 @@ autoload promptinit; promptinit
 
 autoload -Uz colors; colors
 
+fpath+=~/.zfunc
+
 # completion
 autoload -Uz bashcompinit && bashcompinit
 autoload -Uz compinit; compinit
@@ -82,12 +84,24 @@ export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 
 [[ -s "$HOMEBREW_DIR/bin/brew" ]] && eval "$($HOMEBREW_DIR/bin/brew shellenv)"
 [[ -s "$HOMEBREW_DIR/opt/coreutils/libexec/gnubin" ]] && export PATH="$HOMEBREW_DIR/opt/coreutils/libexec/gnubin:$PATH"
+[[ -s "$HOMEBREW_DIR/opt/curl/bin" ]] && export PATH="$HOMEBREW_DIR/opt/curl/bin:$PATH"
 
 [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
+
+export VOLTA_HOME="$HOME/.volta"
+[[ -s "$VOLTA_HOME/bin" ]] && export PATH="$VOLTA_HOME/bin:$PATH"
 
 export GOPATH=$HOME
 export GOROOT=$HOMEBREW_DIR/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export RBENV_ROOT="$HOME/.rbenv"
+export PATH="$RBENV_ROOT/bin:$PATH"
+eval "$(rbenv init - zsh)"
 
 function git_prompt_info {
     local ref st color
@@ -118,16 +132,8 @@ PROMPT='
 %{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info) $(kube_ps1)
 %% '
 
-function ag-vim () {
-    vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
-}
-
 function find-files () {
     find . -type d -name '.git' -prune -o -type f
-}
-
-function find-vim () {
-    vim $(find-files | peco)
 }
 
 function find-cd () {
@@ -140,8 +146,16 @@ function find-cd () {
     fi
 }
 
-function ag-peco () {
-    ag $@ | peco --query "$LBUFFER"
+function find-vim () {
+    vim $(find-files | peco)
+}
+
+function peco-pkill() {
+    for pid in `ps aux | peco | awk '{ print $2 }'`
+    do
+        kill $pid
+        echo "Killed ${pid}"
+    done
 }
 
 function peco-select-history() {
@@ -158,14 +172,6 @@ function peco-select-history() {
     zle clear-screen
 }
 
-function peco-pkill() {
-    for pid in `ps aux | peco | awk '{ print $2 }'`
-    do
-        kill $pid
-        echo "Killed ${pid}"
-    done
-}
-
 function peco-src () {
     local selected_dir=$(ghq list --full-path | peco --query "$LBUFFER")
     if [ -n "$selected_dir" ]; then
@@ -175,6 +181,14 @@ function peco-src () {
     zle clear-screen
 }
 
+function rg-peco () {
+    rg $@ | peco --query "$LBUFFER"
+}
+
+function rg-vim () {
+    vim $(rg $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+}
+
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 bindkey "\e[Z" reverse-menu-complete
@@ -182,10 +196,10 @@ bindkey "\e[Z" reverse-menu-complete
 zle -N peco-src
 bindkey '^]' peco-src
 
-alias av="ag-vim"
 alias fv="find-vim"
 alias fd="find-cd"
-alias ap="ag-peco"
+alias gp="rg-peco"
+alias gv="rg-vim"
 alias pk="peco-pkill"
 alias vi="vim"
 
@@ -197,4 +211,3 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-clou
 eval "$(direnv hook zsh)"
 
 [ -f "$HOME/.zshrc.local" ] && source ~/.zshrc.local
-
