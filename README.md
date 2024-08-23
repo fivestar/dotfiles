@@ -1,9 +1,10 @@
 # dotfiles
 
 ```bash
-mkdir ~/tmp && chmod 700 ~/tmp
+make tmpdir
 ```
 
 ```bash
 make
 ```
+
