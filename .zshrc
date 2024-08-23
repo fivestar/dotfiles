@@ -60,7 +60,7 @@ fi
 case ${OSTYPE} in
     darwin*)
         alias ls='gls'
-        alias dircolors='gdircolors'
+        #alias dircolors='gdircolors'
         export LESSPIPE="$HOMEBREW_DIR/bin/src-hilite-lesspipe.sh"
         ;;
     linux*)
@@ -128,9 +128,15 @@ complete -o default -F __start_kubectl k
 
 source "$HOMEBREW_DIR/opt/kube-ps1/share/kube-ps1.sh"
 
-PROMPT='
+if type "kube_ps1" > /dev/null 2>&1; then
+    PROMPT='
 %{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info) $(kube_ps1)
 %% '
+else
+    PROMPT='
+%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg[green]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)
+%% '
+fi
 
 function find-files () {
     find . -type d -name '.git' -prune -o -type f
