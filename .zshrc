@@ -57,10 +57,16 @@ if [ `uname` = 'Linux' ] && [ `lsb_release -si` = 'Debian' ]; then
     alias sudo='PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/sbin:$PATH sudo -E '
 fi
 
+export PATH=$HOME/bin:$HOMEBREW_DIR/sbin:$HOMEBREW_DIR/bin:$PATH:/usr/sbin
+
+[[ -s "$HOMEBREW_DIR/bin/brew" ]] && eval "$($HOMEBREW_DIR/bin/brew shellenv)"
+[[ -s "$HOMEBREW_DIR/opt/coreutils/libexec/gnubin" ]] && export PATH="$HOMEBREW_DIR/opt/coreutils/libexec/gnubin:$PATH"
+[[ -s "$HOMEBREW_DIR/opt/curl/bin" ]] && export PATH="$HOMEBREW_DIR/opt/curl/bin:$PATH"
+
 case ${OSTYPE} in
     darwin*)
         alias ls='gls'
-        #alias dircolors='gdircolors'
+        alias dircolors='gdircolors'
         export LESSPIPE="$HOMEBREW_DIR/bin/src-hilite-lesspipe.sh"
         ;;
     linux*)
@@ -79,12 +85,7 @@ export ZLS_COLORS=$LS_COLORS
 export LESS='-g -i -M -R -W -z-4 -x4'
 export LESSOPEN="| $LESSPIPE %s"
 export PAGER=less
-export PATH=$HOME/bin:$HOMEBREW_DIR/sbin:$HOMEBREW_DIR/bin:$PATH:/usr/sbin
 export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
-
-[[ -s "$HOMEBREW_DIR/bin/brew" ]] && eval "$($HOMEBREW_DIR/bin/brew shellenv)"
-[[ -s "$HOMEBREW_DIR/opt/coreutils/libexec/gnubin" ]] && export PATH="$HOMEBREW_DIR/opt/coreutils/libexec/gnubin:$PATH"
-[[ -s "$HOMEBREW_DIR/opt/curl/bin" ]] && export PATH="$HOMEBREW_DIR/opt/curl/bin:$PATH"
 
 [[ -s "$HOME/.nvm/nvm.sh" ]] && source "$HOME/.nvm/nvm.sh"
 
