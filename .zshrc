@@ -44,9 +44,19 @@ export PATH="$HOME/bin:$HOMEBREW_DIR/sbin:$HOMEBREW_DIR/bin:/usr/sbin:$PATH"
 
 # Darwin and Linux specific settings
 case ${OSTYPE} in
-    darwin*) export LESSPIPE="$HOMEBREW_DIR/bin/src-hilite-lesspipe.sh" ;;
-    linux*) export LESSPIPE="/usr/share/source-highlight/src-hilite-lesspipe.sh" ;;
+    darwin*) export LESSPIPE="$HOMEBREW_DIR/bin/lesspipe.sh" ;;
 esac
+
+# Check if inside a Screen session before defining precmd
+if [ -n "$STY" ]; then
+    precmd() {
+        # Get the last executed command (without arguments)
+        local last_command
+        last_command=$(fc -ln -1 | awk '{print $1}')  # Extract the command name only
+        echo -n -e "\033k$last_command\033\\"  # Set the window title in Screen
+        print -Pn "\e]0;$last_command\a"  # Set the terminal title as well
+    }
+fi
 
 # Aliases
 alias ls='ls -hAF --color'
@@ -74,6 +84,9 @@ export VOLTA_HOME="$HOME/.volta"
 export GOPATH=$HOME
 export GOROOT=$HOMEBREW_DIR/opt/go/libexec
 export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
+
+# https://github.com/golang/go/issues/61229
+export GOFLAGS=-ldflags=-linkmode=internal
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"

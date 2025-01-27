@@ -7,6 +7,7 @@ escape ^z^z
 # no zombie
 zombie
 
+# disable lockscreen
 bind x
 
 startup_message off
@@ -18,11 +19,10 @@ term xterm-256color
 defbce "on"
 truecolor on
 
-defscrollback 16383
+defscrollback 10000
 msgminwait 0
 
-hardstatus alwayslastline "[%Y/%m/%d %c] %`%-w%{=b bw}%n %t%{-}%+w"
-
+hardstatus alwayslastline "[%Y/%m/%d %c] %`%-w%{=b 0;7}%n %t%{-}%+w"
 
 bind j eval 'focus down'
 bind k eval 'focus up'
@@ -41,4 +41,26 @@ bind -c operate + eval 'resize -v +1' 'command -c operate'
 bind -c operate - eval 'resize -v -1' 'command -c operate'
 bind -c operate > eval 'resize -h +1' 'command -c operate'
 bind -c operate < eval 'resize -h -1' 'command -c operate'
+
+# Cheat sheet
+#
+# ────────────────────────────────────────────────────────────
+# C-a digit                                (select 0-9)      Switch to window number 0 - 9
+# ────────────────────────────────────────────────────────────
+# C-a A                                    (title)           Allow the user to enter a name for the current window.
+# ────────────────────────────────────────────────────────────
+# C-a c, C-a C-c                           (screen)          Create a new window with a shell and switch to that
+#                                                            window.
+# ────────────────────────────────────────────────────────────
+# C-a k, C-a C-k                           (kill)            Destroy current window.
+# ────────────────────────────────────────────────────────────
+# C-a space, C-a n, C-a C-n                (next)            Switch to the next window.
+# ────────────────────────────────────────────────────────────
+# C-a backspace, C-a C-h, C-a p, C-a C-p   (prev)            Switch to the previous window (opposite of C-a n).
+# ────────────────────────────────────────────────────────────
+# C-a [, C-a C-[, C-a esc                  (copy)            Enter copy/scrollback mode.
+# ────────────────────────────────────────────────────────────
+# C-a C-], C-a ]                           (paste .)         Write the contents of the paste buffer to the stdin queue
+#                                                            of the current window.
+# ────────────────────────────────────────────────────────────
 
