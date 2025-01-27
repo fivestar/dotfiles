@@ -51,13 +51,16 @@ esac
 if [ -n "$STY" ]; then
     # Function to set window title
     set_window_title() {
+        local TITLE=""
         if [[ -n "$1" ]]; then
-            # If command is running, show the command name
-            echo -n -e "\033k$(basename "$1")\033\\"
+            TITLE="$1"
         else
-            # Otherwise, show the directory basename
-            echo -n -e "\033k$(basename "$PWD")\033\\"
+            TITLE="$(basename "$PWD")"
         fi
+        if [[ ${#TITLE} -gt 25 ]]; then
+            TITLE="${TITLE:0:22}..."
+        fi
+        echo -ne "\033k$TITLE\033\\"
     }
 
     # Update title when a command is executed
