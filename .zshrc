@@ -47,14 +47,27 @@ case ${OSTYPE} in
     darwin*) export LESSPIPE="$HOMEBREW_DIR/bin/lesspipe.sh" ;;
 esac
 
-# Check if inside a Screen session before defining precmd
+# Check if inside a screen session
 if [ -n "$STY" ]; then
+    # Function to set window title
+    set_window_title() {
+        if [[ -n "$1" ]]; then
+            # If command is running, show the command name
+            echo -n -e "\033k$(basename "$1")\033\\"
+        else
+            # Otherwise, show the directory basename
+            echo -n -e "\033k$(basename "$PWD")\033\\"
+        fi
+    }
+
+    # Update title when a command is executed
+    preexec() {
+        set_window_title "$1"
+    }
+
+    # Update title when returning to prompt (not executing a command)
     precmd() {
-        # Get the last executed command (without arguments)
-        local last_command
-        last_command=$(fc -ln -1 | awk '{print $1}')  # Extract the command name only
-        echo -n -e "\033k$last_command\033\\"  # Set the window title in Screen
-        print -Pn "\e]0;$last_command\a"  # Set the terminal title as well
+        set_window_title
     }
 fi
 
